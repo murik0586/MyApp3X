@@ -7,16 +7,17 @@
     android:padding="@dimen/common_spacing"
     tools:context=".MainActivity">
 
-    <ImageView
+    <ImageButton
         android:id="@+id/authorAvatars"
         android:layout_width="@dimen/Posts_avatar_size"
         android:layout_height="@dimen/Posts_avatar_size"
         android:layout_marginBottom="@dimen/common_spacing"
         app:layout_constraintTop_toTopOf="parent"
+        android:src = "@drawable/netology"
+        android:background="@android:color/transparent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/barrier1"
         tools:srcCompat="@sample/posts.json/data/authorAvatar"
-
         />
 
 
@@ -101,6 +102,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/common_spacing2"
+        android:text="199"
         app:layout_constraintStart_toEndOf="@id/like"
         app:layout_constraintTop_toTopOf="@id/barrier2"
         android:layout_marginStart="@dimen/common_spacing2"
@@ -125,6 +127,7 @@
         android:id="@+id/shared"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="31"
         tools:text="@sample/posts.json/data/shared"
         android:textColor="@color/icons"
         app:layout_constraintStart_toEndOf="@id/sharedes"
