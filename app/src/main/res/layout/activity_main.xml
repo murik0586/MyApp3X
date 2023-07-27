@@ -122,14 +122,15 @@
         app:layout_constraintStart_toEndOf="@id/likess"
         app:layout_constraintTop_toTopOf="@id/barrier2"
         app:srcCompat="@drawable/baseline_share_24"
+
         />
     <TextView
         android:id="@+id/shared"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="31"
         tools:text="@sample/posts.json/data/shared"
         android:textColor="@color/icons"
+        android:text="0"
         app:layout_constraintStart_toEndOf="@id/sharedes"
         app:layout_constraintTop_toTopOf="@id/barrier2"
         android:layout_marginStart="@dimen/common_spacing2"
@@ -145,6 +146,7 @@
         android:layout_marginTop="@dimen/common_spacing2"
         app:layout_constraintEnd_toStartOf="@id/view"
         app:layout_constraintStart_toEndOf="@id/author"
+
 
 
         />
