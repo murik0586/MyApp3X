@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
             "16 мая в 10:00",
             "Привет. Это новая Нетология. Когда-то Нетология начиналась с интенсивов по онлайн-маркетингую Затем появились курсы по дизайну, разработке, аналитике и управлению. Мы растем сами и помогаем расти студентам: от новичков до уверенных профессионалов. Но самое важное остается с нами: мы верим, что в каждом уже есть сила, которая заставляет хотеть больше, целиться выше, бежать быстрее. Наша миссия - помочь встать на путь роста и начать цепочку перемен -> http://netolo.gy/fyb",
             true,
-            11000,
+            11001,
             1,
             true,
             20
@@ -42,13 +42,13 @@ class MainActivity : AppCompatActivity() {
             binding.likess?.text = formatNumber(post.likes)
             binding.view.text = formatNumber(post.views)
             root.setOnClickListener {
-                Log.d("stuff", "stuff")
+                Log.d("root", "root")
             }
-            authorAvatars.setOnClickListener {
-                Log.d("stuff", "avatar")
+                authorAvatars.setOnClickListener {
+              Log.d("avatar", "avatar")
             }
             shared?.setOnClickListener {
-                Log.d("stuff", "share")
+                Log.d("share", "share")
                 post.sharedByMe = !post.sharedByMe
                 post.shared++
                 shared.text = formatNumber(post.shared)
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
 
 
             like.setOnClickListener {
-                print("liked clicked")
+                Log.e("like","likess")//print("liked clicked")
                 post.likedByMe = !post.likedByMe
                 if (post.likedByMe) post.likes++ else post.likes--
 

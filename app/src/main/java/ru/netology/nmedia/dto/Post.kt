@@ -9,12 +9,6 @@ data class Post(
     val content: String,
     var likedByMe: Boolean,
     var likes: Int,
-
-
-
-
-    //var likes: Int = 0,
-    //var likedByMe: Boolean = false,
     var shared: Int,
     var sharedByMe: Boolean,
     val views: Int
