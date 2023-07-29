@@ -1,87 +1,33 @@
-package ru.netology.nmedia
 
-//import android.util.Log
-//import android.view.View
-import android.os.Bundle
-import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
-import ru.netology.nmedia.FormatDigital.formatNumber
-import ru.netology.nmedia.databinding.ActivityMainBinding
-import ru.netology.nmedia.dto.Post
+    package ru.netology.nmedia.activity
 
-//import ru.netology.nmedia.R
+    import android.os.Bundle
+    import androidx.activity.viewModels
+    import androidx.appcompat.app.AppCompatActivity
+    import ru.netology.nmedia.R
+    import ru.netology.nmedia.adapter.PostsAdapter
+    import ru.netology.nmedia.databinding.ActivityMainBinding
+    import ru.netology.nmedia.databinding.CardPostBinding
+    import ru.netology.nmedia.viewmodel.PostViewModel
 
+    class MainActivity : AppCompatActivity() {
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            val binding = ActivityMainBinding.inflate(layoutInflater)
+            setContentView(binding.root)
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+            val viewModel: PostViewModel by viewModels() //получаем viewmodel
 
-        val post = Post(
-            1,
-            "Нетология. Университет интернет профессий будущего",
-            "16 мая в 10:00",
-            "Привет. Это новая Нетология. Когда-то Нетология начиналась с интенсивов по онлайн-маркетингую Затем появились курсы по дизайну, разработке, аналитике и управлению. Мы растем сами и помогаем расти студентам: от новичков до уверенных профессионалов. Но самое важное остается с нами: мы верим, что в каждом уже есть сила, которая заставляет хотеть больше, целиться выше, бежать быстрее. Наша миссия - помочь встать на путь роста и начать цепочку перемен -> http://netolo.gy/fyb",
-            true,
-            11001,
-            1,
-            true,
-            20
+            val adapter = PostsAdapter ({ viewModel.like(it.id)}, {viewModel.shared(it.id)})
 
-            )
+            binding.list.adapter = adapter
 
-
-        with(binding) {
-            author.text = post.author
-            published.text = post.published
-            content.text = post.content
-            likess.text = post.likes.toString()
-
-            binding.shared?.text = formatNumber(post.shared)
-            binding.likess?.text = formatNumber(post.likes)
-            binding.view.text = formatNumber(post.views)
-            root.setOnClickListener {
-                Log.d("root", "root")
+            viewModel.data.observe(this) { posts ->
+                adapter.submitList(posts)
             }
-                authorAvatars.setOnClickListener {
-              Log.d("avatar", "avatar")
-            }
-            shared?.setOnClickListener {
-                Log.d("share", "share")
-                post.sharedByMe = !post.sharedByMe
-                post.shared++
-                shared.text = formatNumber(post.shared)
-            }
-
-            if (post.likedByMe) {
-                like.setImageResource(R.drawable.baseline_favorite_24)
-            }
-
-
-            like.setOnClickListener {
-                Log.e("like","likess")//print("liked clicked")
-                post.likedByMe = !post.likedByMe
-                if (post.likedByMe) post.likes++ else post.likes--
-
-                like.setImageResource(if (post.likedByMe) R.drawable.baseline_favorite_24 else R.drawable.baseline_favorite_border_24)
-                likess.text = post.likes.toString()
-                likess.text = formatNumber(post.likes)
-
-            }
-
-
         }
-
-
-
-        //var counter = 0
-        //with(binding.shared) {
-          //  setOnClickListener {
-            //  text = DigitalFormat.format(++counter)
-            //}
-        //}
-
     }
-}
+
+
+
 
