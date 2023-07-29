@@ -4,10 +4,11 @@ package ru.netology.nmedia
 //import android.view.View
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import ru.netology.nmedia.FormatDigital.formatNumber
 import ru.netology.nmedia.databinding.ActivityMainBinding
-import ru.netology.nmedia.dto.Post
+import ru.netology.nmedia.viewmodel.PostViewModel
 
 //import ru.netology.nmedia.R
 
@@ -18,70 +19,56 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val post = Post(
-            1,
-            "Нетология. Университет интернет профессий будущего",
-            "16 мая в 10:00",
-            "Привет. Это новая Нетология. Когда-то Нетология начиналась с интенсивов по онлайн-маркетингую Затем появились курсы по дизайну, разработке, аналитике и управлению. Мы растем сами и помогаем расти студентам: от новичков до уверенных профессионалов. Но самое важное остается с нами: мы верим, что в каждом уже есть сила, которая заставляет хотеть больше, целиться выше, бежать быстрее. Наша миссия - помочь встать на путь роста и начать цепочку перемен -> http://netolo.gy/fyb",
-            true,
-            11001,
-            1,
-            true,
-            20
-
-            )
+        val viewModel by viewModels<PostViewModel>()
+        viewModel.data.observe(this) { post ->
 
 
-        with(binding) {
-            author.text = post.author
-            published.text = post.published
-            content.text = post.content
-            likess.text = post.likes.toString()
+            with(binding) {
+                author.text = post.author
+                published.text = post.published
+                content.text = post.content
+                likess.text = post.likes.toString()
 
-            binding.shared?.text = formatNumber(post.shared)
-            binding.likess?.text = formatNumber(post.likes)
-            binding.view.text = formatNumber(post.views)
-            root.setOnClickListener {
-                Log.d("root", "root")
-            }
+                binding.shared?.text = formatNumber(post.shared)
+                binding.likess?.text = formatNumber(post.likes)
+                binding.view.text = formatNumber(post.views)
+                root.setOnClickListener {
+                    Log.d("root", "root")
+                }
                 authorAvatars.setOnClickListener {
-              Log.d("avatar", "avatar")
-            }
-            shared?.setOnClickListener {
-                Log.d("share", "share")
-                post.sharedByMe = !post.sharedByMe
-                post.shared++
-                shared.text = formatNumber(post.shared)
-            }
-
-            if (post.likedByMe) {
-                like.setImageResource(R.drawable.baseline_favorite_24)
-            }
-
-
-            like.setOnClickListener {
-                Log.e("like","likess")//print("liked clicked")
-                post.likedByMe = !post.likedByMe
-                if (post.likedByMe) post.likes++ else post.likes--
+                    Log.d("avatar", "avatar")
+                }
+//                shared?.setOnClickListener {
+//                    Log.d("share", "share")
+//                    post.sharedByMe = !post.sharedByMe
+//                    post.shared++
+//                    shared.text = formatNumber(post.shared)
+//                }
 
                 like.setImageResource(if (post.likedByMe) R.drawable.baseline_favorite_24 else R.drawable.baseline_favorite_border_24)
+
                 likess.text = post.likes.toString()
                 likess.text = formatNumber(post.likes)
 
+
+
+//                    likess.text = post.likes.toString()
+//                    likess.text = formatNumber(post.likes)
+
+                }
+            }
+        binding.like.setOnClickListener {
+           viewModel.like()
+
+            binding.shared?.setOnClickListener {
+                Log.d("share", "share")
+//                post.sharedByMe = !post.sharedByMe   //данные которые надо ввести в viewmodel
+//                post.shared++
+//                shared.text = formatNumber(post.shared)
+                viewModel.shared()
             }
 
-
         }
-
-
-
-        //var counter = 0
-        //with(binding.shared) {
-          //  setOnClickListener {
-            //  text = DigitalFormat.format(++counter)
-            //}
-        //}
-
     }
 }
 
