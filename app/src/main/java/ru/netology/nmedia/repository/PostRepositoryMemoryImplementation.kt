@@ -99,7 +99,8 @@ import ru.netology.nmedia.dto.Post
 
     private val data = MutableLiveData(posts)
     override fun getAll(): LiveData<List<Post>> = data
-
+     fun likes(post: Post): Int {
+         return if (post.likedByMe) post.likes - 1 else post.likes + 1}
     override fun save(post: Post) {
         if (post.id == 0L) {
             posts = listOf(
