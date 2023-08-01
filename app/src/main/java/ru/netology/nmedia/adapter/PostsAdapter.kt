@@ -99,13 +99,13 @@ fun bind(post: Post) { // фун bind связывает данные с наш�
                     }
                 }
             }.show()
-            like.setOnClickListener {
-                onInteractionListener.onLike(post) // теперь вызываем через onInteractionListener
-            }
-            sharedes.setOnClickListener {
-                onInteractionListener.onShare(post)
-            }
 
+            }
+        like.setOnClickListener {
+            onInteractionListener.onLike(post) // теперь вызываем через onInteractionListener
+        }
+        sharedes.setOnClickListener {
+            onInteractionListener.onShare(post)
         }
     }
 
