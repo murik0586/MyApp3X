@@ -13,8 +13,6 @@ private val empty = Post(
     published = "",
     likes = 0,
     shared = 0,
-    sharedByMe = false,
-    views = 0
 )
 class PostViewModel: ViewModel() {
 

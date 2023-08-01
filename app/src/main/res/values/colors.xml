@@ -3,4 +3,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="icons">#B8B3B3</color>
+    <color name="like_checkbox_tint" >#B8B3B5</color>
+    <color name="grey">#424242</color>
+    <color name="red">#FF0000</color>
+    <color name="icon_button_tint">#FF3000</color>
+    <color name="transparent">#000000</color>
 </resources>

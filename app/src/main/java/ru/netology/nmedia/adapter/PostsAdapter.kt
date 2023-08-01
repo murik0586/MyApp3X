@@ -81,6 +81,7 @@ fun bind(post: Post) { // фун bind связывает данные с наш�
         like.setImageResource(
             if (post.likedByMe) R.drawable.baseline_favorite_24  else R.drawable.baseline_favorite_border_24
         )
+
         menu.setOnClickListener {
             PopupMenu(it.context, it).apply {
                 inflate(R.menu.menu_post)
@@ -99,13 +100,12 @@ fun bind(post: Post) { // фун bind связывает данные с наш�
                     }
                 }
             }.show()
-            like.setOnClickListener {
-                onInteractionListener.onLike(post) // теперь вызываем через onInteractionListener
-            }
-            sharedes.setOnClickListener {
-                onInteractionListener.onShare(post)
-            }
-
+        }
+        like.setOnClickListener {
+            onInteractionListener.onLike(post) // теперь вызываем через onInteractionListener
+        }
+        sharedes.setOnClickListener {
+            onInteractionListener.onShare(post)
         }
     }
 
