@@ -17,7 +17,8 @@ import ru.netology.nmedia.dto.Post
             250,
             1000,
             false,
-            20
+            20,
+            "https://www.youtube.com/watch?v=Xide0dWNzdI"
         ),
         Post(
             2,
@@ -28,7 +29,8 @@ import ru.netology.nmedia.dto.Post
             1,
             1,
             true,
-            3121
+            3121,
+            null
         ),
 
         Post(
@@ -40,7 +42,8 @@ import ru.netology.nmedia.dto.Post
             1,
             1,
             true,
-            542
+            542,
+            null
         ),
         Post(
             4,
@@ -51,7 +54,8 @@ import ru.netology.nmedia.dto.Post
             1656,
             1643432,
             false,
-            2854
+            2854,
+            null
         ), Post(
             5,
             "Вальтер",
@@ -60,7 +64,8 @@ import ru.netology.nmedia.dto.Post
             false,
             1_111_111,
             654,
-            true, 200_323_121
+            true, 200_323_121,
+            null
         ), Post(
             6,
             "Zero Fistashka",
@@ -70,7 +75,8 @@ import ru.netology.nmedia.dto.Post
             732,
             20,
             false,
-            8211
+            8211,
+            null
         ),
 
         Post(
@@ -82,7 +88,8 @@ import ru.netology.nmedia.dto.Post
             256,
             10,
             true,
-            2_543
+            2_543,
+            "https://www.youtube.com/watch?v=5kRg_JQ9N9Q"
         ),
         Post(
             7,
@@ -93,7 +100,8 @@ import ru.netology.nmedia.dto.Post
             257,
             0,
             true,
-            14221
+            14221,
+        null
         )
     ).reversed()
 
@@ -105,17 +113,21 @@ import ru.netology.nmedia.dto.Post
             posts = listOf(
                 post.copy(
                     id = nextId++,
+                    author = "me",
                     likedByMe = false,
+                     published = "now"
                 )
             ) + posts
-        } else {
-            posts = posts.map { //если id совпали, значит произошло редактирование
-                if (it.id != post.id) it else it.copy(content = post.content)
-            }
+            data.value = posts
+            return
+        }
+
+        posts = posts.map { //если id совпали, значит произошло редактирование
+            if (it.id != post.id) it else it.copy(content = post.content)
+
         }
         data.value = posts
     }
-
 
      override fun like(id: Long) {
         posts = posts.map{

@@ -9,42 +9,42 @@ private val empty = Post(
     id = 0,
     content = "",
     author = "",
-    likedByMe = true,
+    likedByMe = false,
     published = "",
+    sharedByMe = false,
     likes = 0,
     shared = 0,
-    sharedByMe = false,
-    views = 0
+    views = 0,
+    video = null
 )
-class PostViewModel: ViewModel() {
+class PostViewModel : ViewModel() {
+    private val repository: PostRepository =
+PostRepositoryMemoryImplementation()
+val data = repository.getAll()
+val edited = MutableLiveData(empty)
 
-    private val repository: PostRepository = PostRepositoryMemoryImplementation()
-
-    val data = repository.getAll()
-    val edited = MutableLiveData (empty)
-
-    fun save() {
-        edited.value?.let {
-            repository.save(it)
-        }
-        edited.value = empty
+fun save() {
+    edited.value?.let {
+        repository.save(it)
     }
-    fun edit(post: Post) {
-        edited.value = post
+    edited.value = empty
+}
+fun edit(post: Post) {
+    edited.value = post
+}
+fun changeContent(content: String) { // функция изменения контента
+    val text = content.trim()
+    if (edited.value?.content == text) {
+        return
     }
+    edited.value = edited.value?.copy(content = text)
+}
 
+fun likeById(id: Long) = repository.like(id)
+fun shareById(id: Long) = repository.shared(id)
 
-    fun changeContent(content: String) { // функция изменения контента
-        val text = content.trim()
-        if (edited.value?.content == text) {
-            return
-        }
-        edited.value = edited.value?.copy(content = text)
-    }
-    fun like(id: Long) = repository.like(id)
-    fun shared(id: Long) = repository.shared(id)
-    fun removeById(id: Long) = repository.removeById(id)
-    fun cancelEdit() {
-        edited.value = empty
-    }
+fun removeById(id: Long) = repository.removeById(id)
+fun cancelEdit() {
+    edited.value = empty
+}
 }
