@@ -75,12 +75,14 @@ fun bind(post: Post) { // фун bind связывает данные с наш�
         author.text = post.author
         published.text = post.published
         content.text = post.content
-        likess.text = formatNumber(post.likes)
-        shared.text = formatNumber(post.shared)
-        view.text = formatNumber(post.views)
-        like.setImageResource(
-            if (post.likedByMe) R.drawable.baseline_favorite_24  else R.drawable.baseline_favorite_border_24
-        )
+        //likess.text = formatNumber(post.likes)
+        share.text = formatNumber(post.shared)
+        viewsCount.text = formatNumber(post.views)
+        like.isChecked = post.likedByMe
+        like.text = "${formatNumber(post.likes)}"
+        //like.setImageResource(
+         //   if (post.likedByMe) R.drawable.baseline_favorite_24  else R.drawable.baseline_favorite_border_24
+        //)
         menu.setOnClickListener {
             PopupMenu(it.context, it).apply {
                 inflate(R.menu.menu_post)
@@ -104,7 +106,7 @@ fun bind(post: Post) { // фун bind связывает данные с наш�
         like.setOnClickListener {
             onInteractionListener.onLike(post) // теперь вызываем через onInteractionListener
         }
-        sharedes.setOnClickListener {
+        share.setOnClickListener {
             onInteractionListener.onShare(post)
         }
     }

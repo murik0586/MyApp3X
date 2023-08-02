@@ -9,7 +9,7 @@ data class Post(
     val likedByMe: Boolean,
     val likes: Int,
     val shared: Int,
-    val sharedByMe: Boolean,
+    val sharedByMe: Boolean = false,
     val views: Int
 )
 /*package ru.netology.nmedia.dto
