@@ -12,20 +12,13 @@ import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.dto.Post
 
-typealias OnLikeListener = (post: Post) -> Unit
-typealias OnShareListener = (post: Post) -> Unit
-typealias OnRemoveListener = (post: Post) -> Unit
-
 interface OnInteractionListener {
     fun onLike(post: Post) {}
     fun onRemove(post: Post) {}
-
     fun onShare(post: Post) {}
     fun onEdit(post: Post) {}
-
     fun onVideo(post: Post) {}
     fun onClickToNewPost(post: Post) {}
-
 }
 class PostsAdapter(
     private val onInteractionListener: OnInteractionListener,
@@ -48,7 +41,6 @@ class PostsAdapter(
         holder.bind(post)
     }
 }
-
 class PostViewHolder(
     //для каждого холдера мы должны передать верстку(binding) и вторым параметром передаем весь набор функций, которые отслеживают клики(onInteractionListener)
     private val binding: CardPostBinding,
@@ -102,7 +94,6 @@ class PostViewHolder(
             root.setOnClickListener {
                 onInteractionListener.onClickToNewPost(post)
             }
-
         }
     }
 }
@@ -114,7 +105,6 @@ class PostDiffCallback :
     ): Boolean { // умеет сравнивать два листа и понимать что у них изменилось. то есть какая запись была в листе удалена, добавлена или отредактирована
         return oldItem.id == newItem.id // когда DiffUtil узнает какой элемент как изменился, он передает это в адаптер и адаптер сам принимает решение какую анимацию как применить
     }
-
     override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
         return oldItem == newItem
     }
