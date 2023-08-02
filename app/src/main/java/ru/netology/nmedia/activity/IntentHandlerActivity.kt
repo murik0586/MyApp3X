@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.ActivityIntentHandlerBinding
+import android.widget.Toast
 
 class IntentHandlerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +30,8 @@ class IntentHandlerActivity : AppCompatActivity() {
                         finish()
                     }
                     .show()
+            } else {
+                Toast.makeText( this,R.string.content_sent, Toast.LENGTH_SHORT).show()
             }
         }
     }

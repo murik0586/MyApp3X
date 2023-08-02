@@ -19,4 +19,6 @@
     <string name="editing_cancelled">Редактирование отменено</string>
     <string name="description_post_edit_cancel">Отменить</string>
     <string name="edit_message">Отредактировать Пост</string>
+    <string name="content_sent">Отправлено</string>
+   
 </resources>
