@@ -23,25 +23,23 @@ interface OnInteractionListener {
     fun onShare(post: Post) {}
     fun onEdit(post: Post) {}
 
-    fun onCancelEdit(post: Post) {}
-
     fun onVideo(post: Post) {}
+    fun onClickToNewPost(post: Post) {}
+
 }
 class PostsAdapter(
     private val onInteractionListener: OnInteractionListener,
-) : ListAdapter<Post, PostViewHolder>(PostDiffCallback()) {
+) : ListAdapter<Post, PostViewHolder>(PostDiffCallback()) { //отнаследовали от листадаптер(потому что он умеет работать с данными типа лист)
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): PostViewHolder { // ДЛЯ СОЗДАНИЯ ВЕРСТКИ
         val binding = CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-
         return PostViewHolder(
             binding,
             onInteractionListener
         ) //для каждого холдера мы должны передать верстку(binding) и вторым параметром передаем весь набор функций, которые отслеживают клики(onInteractionListener)
     }
-
     override fun onBindViewHolder(
         holder: PostViewHolder,
         position: Int
@@ -55,7 +53,7 @@ class PostViewHolder(
     //для каждого холдера мы должны передать верстку(binding) и вторым параметром передаем весь набор функций, которые отслеживают клики(onInteractionListener)
     private val binding: CardPostBinding,
     private val onInteractionListener: OnInteractionListener,
-) : RecyclerView.ViewHolder(binding.root) {
+) : RecyclerView.ViewHolder(binding.root) { // у ViewHolder при вызове базового класса должны передавать ссылку на корневой элемент
     fun bind(post: Post) { // фун bind связывает данные с нашим интерфейсом который создан из верстки
         binding.apply {
             var videoLayout = videoGroup
@@ -64,7 +62,6 @@ class PostViewHolder(
             } else {
                 videoLayout.visibility = View.GONE
             }
-
             author.text = post.author
             published.text = post.published
             content.text = post.content
@@ -72,8 +69,6 @@ class PostViewHolder(
             viewsCount.text = formatNumber(post.views)
             like.isChecked = post.likedByMe
             like.text = "${formatNumber(post.likes)}"
-
-
             menu.setOnClickListener {
                 PopupMenu(it.context, it).apply {
                     inflate(R.menu.menu_post)
@@ -83,12 +78,10 @@ class PostViewHolder(
                                 onInteractionListener.onRemove(post) // из onInteractionListener мы вызываем нужный нам обработчик. В параметр передаем пост, т.е. будет срабатывать на опред пост
                                 true // обязательно должны вернуть true. Означает, что данный клик по пункту меню уже был нам обработан и дальше обработчики уже вызывать не нужно. Иначе ОС попытается найти все оставщиеся обработчики
                             }
-
                             R.id.edit -> {
                                 onInteractionListener.onEdit(post)
                                 true
                             }
-
                             else -> false
                         }
                     }
@@ -100,13 +93,14 @@ class PostViewHolder(
             share.setOnClickListener {
                 onInteractionListener.onShare(post)
             }
-
             video.setOnClickListener {
                 onInteractionListener.onVideo(post)
             }
-
             videoButton.setOnClickListener {
                 onInteractionListener.onVideo(post)
+            }
+            root.setOnClickListener {
+                onInteractionListener.onClickToNewPost(post)
             }
 
         }
@@ -125,5 +119,3 @@ class PostDiffCallback :
         return oldItem == newItem
     }
 }
-
-
